@@ -13,7 +13,7 @@ def decorator_2(func):
 
 		# Redirecting output
 		with contextlib.redirect_stdout(io.StringIO()) as f:
-			func(*args, **kwargs)
+			ret_val = func(*args, **kwargs)
 
 		# Writing end time
 		end = time.perf_counter()
@@ -56,6 +56,7 @@ def decorator_2(func):
 		print('Output:'.ljust(indent), output[0])
 		for i in range(1, len(output)):
 			print(''.ljust(indent), output[i].strip())
+		return ret_val
 	wrapper.count = 0
 	return wrapper
 

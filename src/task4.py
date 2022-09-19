@@ -14,9 +14,8 @@ class ProtectedClassDecorator1:
         self.count += 1
 
         start = time.perf_counter()
-        with contextlib.redirect_stdout(io.StringIO()) as stdout:
-            with open('exceptions.log', 'a') as log:
-                contextlib.redirect_stderr(log)
+        with open("output.txt", "a") as output_file, open('exceptions.log', 'a') as log:
+            with contextlib.redirect_stdout(output_file), contextlib.redirect_stderr(log):
                 try:
                     output = self.func(*args, **kwargs)
                 except:
@@ -32,11 +31,10 @@ def protected_decorator_1(func):
     def wrapper(*args, **kwargs):
         wrapper.count += 1
         start = time.perf_counter()
-        with contextlib.redirect_stdout(io.StringIO()):
-            with open('exceptions.log', 'a') as log:
-                contextlib.redirect_stderr(log)
+        with open("output.txt", "a") as output_file, open('exceptions.log', 'a') as log:
+            with contextlib.redirect_stdout(output_file), contextlib.redirect_stderr(log):
                 try:
-                    func(*args, **kwargs)
+                    output = func(*args, **kwargs)
                 except:
                     log.write(f'Dropped exception at {datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")}:\n"{traceback.format_exc().strip()}"\n')
                 else:

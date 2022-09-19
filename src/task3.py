@@ -19,13 +19,15 @@ class ClassDecorator1:
         start = time.perf_counter()
 
         with contextlib.redirect_stdout(io.StringIO()) as f:
-            output = self.func(*args, **kwargs)
+            ret_val = self.func(*args, **kwargs)
 
         end = time.perf_counter()
 
-        print(f"{self.func.__name__} call {self.count} executed in {end - start} sec")
+        with open("output.txt", "a") as output_file:
+            with contextlib.redirect_stdout(output_file):
+                print(f"{self.func.__name__} call {self.count} executed in {end - start} sec")
 
-        return output
+        return ret_val
 
 
 class ClassDecorator2:
@@ -39,51 +41,53 @@ class ClassDecorator2:
 
         # Redirecting output
         with contextlib.redirect_stdout(io.StringIO()) as f:
-            output = self.func(*args, **kwargs)
+            ret_val = self.func(*args, **kwargs)
 
-        # Writing end time
-        end = time.perf_counter()
-        # Incrementing function execution counter
-        self.count += 1
+        with open("output.txt", "a") as output_file:
+            with contextlib.redirect_stdout(output_file):
+                # Writing end time
+                end = time.perf_counter()
+                # Incrementing function execution counter
+                self.count += 1
 
-        # Printing number of executions
-        print(f"{self.func.__name__} call {self.count} executed in {end - start} sec")
+                # Printing number of executions
+                print(f"{self.func.__name__} call {self.count} executed in {end - start} sec")
 
-        # Printing function name
-        print(f'Name:'.ljust(indent), self.func.__name__)
+                # Printing function name
+                print(f'Name:'.ljust(indent), self.func.__name__)
 
-        # Printing function object type
-        print(f'Type:'.ljust(indent), type(self.func))
+                # Printing function object type
+                print(f'Type:'.ljust(indent), type(self.func))
 
-        # Creating function object signature (object too)
-        sig = inspect.signature(self.func)
+                # Creating function object signature (object too)
+                sig = inspect.signature(self.func)
 
-        # Printing signature
-        print(f'Sign:'.ljust(indent), sig)
+                # Printing signature
+                print(f'Sign:'.ljust(indent), sig)
 
-        # Printing positional and key-worded arguments
-        print('Args:'.ljust(indent), 'positional', sig.bind_partial(*args, **kwargs).args)
-        print(''.ljust(indent), 'key-worded', sig.bind_partial(*args, **kwargs).kwargs)
+                # Printing positional and key-worded arguments
+                print('Args:'.ljust(indent), 'positional', sig.bind_partial(*args, **kwargs).args)
+                print(''.ljust(indent), 'key-worded', sig.bind_partial(*args, **kwargs).kwargs)
 
-        # Splitting doc string and printing it
-        doc_rows = self.func.__doc__.strip().split('\n')
-        print('Doc:'.ljust(indent), doc_rows[0])
-        for i in range(1, len(doc_rows)):
-            print(''.ljust(indent), doc_rows[i].strip())
+                # Splitting doc string and printing it
+                doc_rows = self.func.__doc__.strip().split('\n')
+                print('Doc:'.ljust(indent), doc_rows[0])
+                for i in range(1, len(doc_rows)):
+                    print(''.ljust(indent), doc_rows[i].strip())
 
-        # Printing function source
-        source_rows = inspect.getsource(self.func).split('\n')
-        print('Source:'.ljust(indent), source_rows[0])
-        for i in range(1, len(source_rows)):
-            print(''.ljust(indent), source_rows[i].strip())
+                # Printing function source
+                source_rows = inspect.getsource(self.func).split('\n')
+                print('Source:'.ljust(indent), source_rows[0])
+                for i in range(1, len(source_rows)):
+                    print(''.ljust(indent), source_rows[i].strip())
 
-        # Printing function output
-        output = f.getvalue().split('\n')
-        print('Output:'.ljust(indent), output[0])
-        for i in range(1, len(output)):
-            print(''.ljust(indent), output[i].strip())
+                # Printing function output
+                out = f.getvalue().split('\n')
+                print('Output:'.ljust(indent), out[0])
+                for i in range(1, len(out)):
+                    print(''.ljust(indent), out[i].strip())
 
-        return output
+        return ret_val
 
 
 class Ranker:

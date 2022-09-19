@@ -35,7 +35,7 @@ def quadratic_equation_solver(a, b, c):
     :param c:
     :return:
     """
-    discriminant = b**2 - 4 * a * c
+    discriminant =  b**2 - 4 * a * c
 
     if discriminant < 0:
         raise ValueError
@@ -49,7 +49,10 @@ def quadratic_equation_solver(a, b, c):
 
 def fn():
     for i in range(1000):
-        print(i ** i)
+        print(lambda: i ** 2)
+
+
+useless_lambda = lambda a: print(a * a + a / a)
 
 
 @decorator_2
@@ -89,7 +92,7 @@ funh(None, bar2='lol')
 print('_' * 75)
 
 
-print("Checking task 3\n\tDecorator 1")
+print("Checking task 3\n(Look for outputs in output.txt file)")
 d31_pascal = task3.ClassDecorator1(pascal_triangle_printer)
 d31_quadratic = task3.ClassDecorator1(quadratic_equation_solver)
 
@@ -99,7 +102,6 @@ d31_pascal(2)
 d31_quadratic(1, 5, 3)
 d31_pascal(30)
 
-print('\tDecorator 2')
 d32_pascal = task3.ClassDecorator2(pascal_triangle_printer)
 d32_quadratic = task3.ClassDecorator2(quadratic_equation_solver)
 
@@ -109,25 +111,28 @@ d32_pascal(2)
 d32_quadratic(1, 5, 3)
 d32_pascal(30)
 
-print('\tRanking functions')
 ranking_pascal = task3.Ranker(pascal_triangle_printer)
 ranking_quadratic = task3.Ranker(quadratic_equation_solver)
 ranking_funh = task3.Ranker(funh)
 ranking_fn = task3.Ranker(fn)
+ranking_lambda = task3.Ranker(useless_lambda)
 
 ranking_pascal(100)
 ranking_quadratic(1, 5, 3)
 ranking_funh(None, bar2='lol')
 ranking_fn()
+ranking_lambda(3)
 task3.Ranker.print_ranking()
 
 print('_' * 75)
 
-print("Checking task 4")
+print("Checking task 4\n(Look for outputs in output.txt file, for logs in cases of exceptions - in exception.log file)")
 protected_pascal = ProtectedClassDecorator1(pascal_triangle_printer)
 protected_funh = ProtectedClassDecorator1(funh)
 protected_quadratic = protected_decorator_1(quadratic_equation_solver)
 
 protected_pascal('lol')
+protected_pascal(4)
 protected_funh()
 protected_quadratic()
+protected_quadratic(1, 5, 3)
