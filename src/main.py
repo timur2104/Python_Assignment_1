@@ -1,9 +1,8 @@
 import math
-import task3
 
+import task3
 from task1 import decorator_1
 from task2 import decorator_2
-
 from task4 import ProtectedClassDecorator1, protected_decorator_1
 
 
@@ -21,7 +20,8 @@ def pascal_triangle_printer(n=2):
     rows = [[1]]
 
     while len(rows) != n:
-        rows.append([a + b for a, b in zip([0] + rows[length - 1], rows[length - 1] + [0])])
+        rows.append(
+            [a + b for a, b in zip([0] + rows[length - 1], rows[length - 1] + [0])])
         length = len(rows)
 
     print(rows)
@@ -35,7 +35,7 @@ def quadratic_equation_solver(a, b, c):
     :param c:
     :return:
     """
-    discriminant =  b**2 - 4 * a * c
+    discriminant = b**2 - 4 * a * c
 
     if discriminant < 0:
         raise ValueError
@@ -52,7 +52,7 @@ def fn():
         print(lambda: i ** 2)
 
 
-useless_lambda = lambda a: print(a * a + a / a)
+def useless_lambda(a): return print(a * a + a / a)
 
 
 @decorator_2
