@@ -1,9 +1,9 @@
 import math
-
+import task3
 
 from task1 import decorator_1
 from task2 import decorator_2
-import task3
+
 from task4 import ProtectedClassDecorator1, protected_decorator_1
 
 
