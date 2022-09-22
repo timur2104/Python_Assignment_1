@@ -1,7 +1,7 @@
-import time
 import contextlib
-import io
 import inspect
+import io
+import time
 
 indent = 12
 
@@ -36,8 +36,9 @@ def decorator_2(func):
 		print(f'Sign:'.ljust(indent), sig)
 
 		# Printing positional and key-worded arguments
-		print('Args:'.ljust(indent), 'positional', sig.bind_partial(*args, **kwargs).args)
-		print(''.ljust(indent), 'key-worded', sig.bind_partial(*args, **kwargs).kwargs)
+		# Maybe it is more convenient to use simply args and kwargs instead of signature.bind_parial
+		print('Args:'.ljust(indent), 'positional', args)
+		print(''.ljust(indent), 'key-worded', kwargs)
 
 		# Splitting doc string and printing it
 		doc_rows = func.__doc__.strip().split('\n')

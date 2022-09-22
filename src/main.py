@@ -51,7 +51,7 @@ def fn():
     for i in range(1000):
         print(lambda: i ** 2)
 
-
+# It seems that you forgot about lambda
 def useless_lambda(a): return print(a * a + a / a)
 
 

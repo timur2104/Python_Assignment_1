@@ -1,10 +1,10 @@
+import contextlib
 import datetime
 import time
-import contextlib
-import io
 import traceback
 
 
+# Here inheritance from ClassDecorator1 (Task3) would be convenient to avoid duplications of code.
 class ProtectedClassDecorator1:
     def __init__(self, func):
         self.count = 0
@@ -40,6 +40,8 @@ def protected_decorator_1(func):
                 else:
                     end = time.perf_counter()
                     print(f"{func.__name__} call {wrapper.count} executed in {end - start} sec")
+
+                    return output
 
     wrapper.count = 0
     return wrapper

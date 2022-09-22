@@ -1,6 +1,6 @@
-import time
 import contextlib
 import io
+import time
 
 
 def decorator_1(func):
@@ -14,4 +14,3 @@ def decorator_1(func):
 		return ret_val
 	wrapper.count = 0
 	return wrapper
-
