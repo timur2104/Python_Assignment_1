@@ -30,6 +30,7 @@ class ClassDecorator1:
         return ret_val
 
 
+# Here inheritance from ClassDecorator1 would be convenient to avoid duplications of code.
 class ClassDecorator2:
     def __init__(self, func):
         self.count = 0
@@ -66,8 +67,8 @@ class ClassDecorator2:
                 print(f'Sign:'.ljust(indent), sig)
 
                 # Printing positional and key-worded arguments
-                print('Args:'.ljust(indent), 'positional', sig.bind_partial(*args, **kwargs).args)
-                print(''.ljust(indent), 'key-worded', sig.bind_partial(*args, **kwargs).kwargs)
+                print('Args:'.ljust(indent), 'positional', args)
+                print(''.ljust(indent), 'key-worded', kwargs)
 
                 # Splitting doc string and printing it
                 doc_rows = self.func.__doc__.strip().split('\n')
